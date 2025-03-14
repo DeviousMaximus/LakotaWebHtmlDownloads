@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <style>
+        p {
+            text-align: left;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+<div style="width: 800px;height: 600px;margin: 30px auto;text-align: center">
+    <h1>websocket</h1>
+    <div style="width: 800px;border: 1px solid gray;height: 300px;">
+        <div style="width: 200px;height: 300px;float: left;text-align: left;">
+            <p><span>Online:</span><span id="user_num">0</span></p>
+            <div id="user_list" style="overflow: auto;">
+
+            </div>
+        </div>
+        <div id="msg_list" style="width: 598px;border:  1px solid gray; height: 300px;overflow: scroll;float: left;">
+        </div>
+    </div>
+    <br>
+    <textarea id="msg_box" rows="6" cols="50" onkeydown="confirm(event)"></textarea><br>
+    <input type="button" value="send" onclick="send()">
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    // Store the username in a global variable and send it to the server after the handshake is successful
+    var uname = prompt('Please enter username', 'user' + uuid(8, 16));
+    var ws = new WebSocket("ws://127.0.0.1:8080");
+    ws.onopen = function () {
+        var data = "Connection Established Succesfully";
+        listMsg(data);
+    };
+
+    /**
+     * Analyze server response information
+     *
+     * msg.type : user general information;system System information;handshake Handshake information
+;login Login information; logout Exit information;
+     * msg.from : Source
+     * msg.content: Message content
+     */
+    ws.onmessage = function (e) {
+        var msg = JSON.parse(e.data);
+        var sender, user_name, name_list, change_type;
+
+        switch (msg.type) {
+            case 'system':
+                sender = 'System messages: ';
+                break;
+            case 'user':
+                sender = msg.from + ': ';
+                break;
+            case 'handshake':
+                var user_info = {'type': 'login', 'content': uname};
+                sendMsg(user_info);
+                return;
+            case 'login':
+            case 'logout':
+                user_name = msg.content;
+                name_list = msg.user_list;
+                change_type = msg.type;
+                dealUser(user_name, change_type, name_list);
+                return;
+        }
+
+        var data = sender + msg.content;
+        listMsg(data);
+    };
+
+    ws.onerror = function () {
+        var data = "An error occurred, please exit and try again.";
+        listMsg(data);
+    };
+
+    /**
+     * Send a message when the enter key is pressed in the input box
+     *
+     * @param event
+     *
+     * @returns {boolean}
+     */
+    function confirm(event) {
+        var key_num = event.keyCode;
+        if (13 == key_num) {
+            send();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Send and clear the message in the message input box
+     */
+    function send() {
+        var msg_box = document.getElementById("msg_box");
+        var content = msg_box.value;
+        var reg = new RegExp("\r\n", "g");
+        content = content.replace(reg, "");
+        var msg = {'content': content.trim(), 'type': 'user'};
+        sendMsg(msg);
+        msg_box.value = '';
+        // todo Clear newline characters
+    }
+
+    /**
+     * Add the message content to the output box and scroll the scroll bar to the bottom
+     */
+    function listMsg(data) {
+        var msg_list = document.getElementById("msg_list");
+        var msg = document.createElement("p");
+
+        msg.innerHTML = data;
+        msg_list.appendChild(msg);
+        msg_list.scrollTop = msg_list.scrollHeight;
+    }
+
+    /**
+     * Processing user login messages
+     *
+     * @param user_name username
+     * @param type  login/logout
+     * @param name_list User list
+     */
+    function dealUser(user_name, type, name_list) {
+        var user_list = document.getElementById("user_list");
+        var user_num = document.getElementById("user_num");
+        while(user_list.hasChildNodes()) {
+            user_list.removeChild(user_list.firstChild);
+        }
+
+        for (var index in name_list) {
+            var user = document.createElement("p");
+            user.innerHTML = name_list[index];
+            user_list.appendChild(user);
+        }
+        user_num.innerHTML = name_list.length;
+        user_list.scrollTop = user_list.scrollHeight;
+
+        var change = type == 'login' ? 'Online' : 'Offline';
+
+        var data = 'System message: ' + user_name + ' 已' + change;
+        listMsg(data);
+    }
+
+    /**
+     * Convert data to json and send
+     * @param msg
+     */
+    function sendMsg(msg) {
+        var data = JSON.stringify(msg);
+        ws.send(data);
+    }
+
+    /**
+     * Generate a globally unique ID as the default value of the username;
+     *
+     * @param len
+     * @param radix
+     * @returns {string}
+     */
+    function uuid(len, radix) {
+        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+        var uuid = [], i;
+        radix = radix || chars.length;
+
+        if (len) {
+            for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];
+        } else {
+            var r;
+
+            uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+            uuid[14] = '4';
+
+            for (i = 0; i < 36; i++) {
+                if (!uuid[i]) {
+                    r = 0 | Math.random() * 16;
+                    uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+                }
+            }
+        }
+
+        return uuid.join('');
+    }
+</script>
