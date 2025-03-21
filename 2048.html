@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple 2048 Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #faf8ef;
+        }
+        
+        #game-container {
+            width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            background-color: #bbada0;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        
+        .cell {
+            width: 80px;
+            height: 80px;
+            background-color: #cdc1b4;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #776e65;
+        }
+        
+        .cell-2 { background-color: #eee4da; }
+        .cell-4 { background-color: #ede0c8; }
+        .cell-8 { background-color: #f2b179; color: #f9f6f2; }
+        .cell-16 { background-color: #f59563; color: #f9f6f2; }
+        .cell-32 { background-color: #f67c5f; color: #f9f6f2; }
+        .cell-64 { background-color: #f65e3b; color: #f9f6f2; }
+        .cell-128 { background-color: #edcf72; color: #f9f6f2; }
+        .cell-256 { background-color: #edcc61; color: #f9f6f2; }
+        .cell-512 { background-color: #edc850; color: #f9f6f2; }
+        .cell-1024 { background-color: #edc53f; color: #f9f6f2; font-size: 18px; }
+        .cell-2048 { background-color: #edc22e; color: #f9f6f2; font-size: 18px; }
+        
+        #score-container {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        #message {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #776e65;
+            height: 30px;
+        }
+        
+        button {
+            background-color: #8f7a66;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #9f8b77;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>2048</h1>
+        <div id="score-container">Score: <span id="score">0</span></div>
+        <button onclick="restartGame()">New Game</button>
+        <div id="message"></div>
+        <div id="grid"></div>
+    </div>
+
+    <script>
+        // Game variables
+        let grid = [];
+        let score = 0;
+        let gameOver = false;
+        
+        // Initialize the game
+        function initGame() {
+            // Create grid
+            grid = [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ];
+            
+            // Reset score
+            score = 0;
+            document.getElementById('score').textContent = score;
+            
+            // Reset game state
+            gameOver = false;
+            document.getElementById('message').textContent = '';
+            
+            // Create grid cells
+            const gridElement = document.getElementById('grid');
+            gridElement.innerHTML = '';
+            
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    const cell = document.createElement('div');
+                    cell.id = `cell-${i}-${j}`;
+                    cell.className = 'cell';
+                    gridElement.appendChild(cell);
+                }
+            }
+            
+            // Add initial tiles
+            addRandomTile();
+            addRandomTile();
+            updateGrid();
+        }
+        
+        // Add a random tile (2 or 4) to an empty cell
+        function addRandomTile() {
+            // Find all empty cells
+            const emptyCells = [];
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    if (grid[i][j] === 0) {
+                        emptyCells.push({row: i, col: j});
+                    }
+                }
+            }
+            
+            if (emptyCells.length === 0) return;
+            
+            // Choose a random empty cell
+            const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+            
+            // Set the value (90% chance of 2, 10% chance of 4)
+            grid[randomCell.row][randomCell.col] = Math.random() < 0.9 ? 2 : 4;
+        }
+        
+        // Update the grid display
+        function updateGrid() {
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    const cell = document.getElementById(`cell-${i}-${j}`);
+                    const value = grid[i][j];
+                    
+                    cell.className = value === 0 ? 'cell' : `cell cell-${value}`;
+                    cell.textContent = value === 0 ? '' : value;
+                }
+            }
+        }
+        
+        // Move tiles left
+        function moveLeft() {
+            let moved = false;
+            
+            for (let i = 0; i < 4; i++) {
+                // Get the row without zeros
+                let row = grid[i].filter(val => val !== 0);
+                
+                // Merge tiles
+                for (let j = 0; j < row.length - 1; j++) {
+                    if (row[j] === row[j + 1]) {
+                        row[j] *= 2;
+                        row[j + 1] = 0;
+                        score += row[j];
+                    }
+                }
+                
+                // Remove zeros again
+                row = row.filter(val => val !== 0);
+                
+                // Fill with zeros
+                while (row.length < 4) {
+                    row.push(0);
+                }
+                
+                // Check if the row has changed
+                if (!grid[i].every((val, index) => val === row[index])) {
+                    moved = true;
+                }
+                
+                // Update the grid
+                grid[i] = row;
+            }
+            
+            return moved;
+        }
+        
+        // Move tiles right
+        function moveRight() {
+            let moved = false;
+            
+            for (let i = 0; i < 4; i++) {
+                // Get the row without zeros
+                let row = grid[i].filter(val => val !== 0);
+                
+                // Merge tiles
+                for (let j = row.length - 1; j > 0; j--) {
+                    if (row[j] === row[j - 1]) {
+                        row[j] *= 2;
+                        row[j - 1] = 0;
+                        score += row[j];
+                    }
+                }
+                
+                // Remove zeros again
+                row = row.filter(val => val !== 0);
+                
+                // Fill with zeros
+                while (row.length < 4) {
+                    row.unshift(0);
+                }
+                
+                // Check if the row has changed
+                if (!grid[i].every((val, index) => val === row[index])) {
+                    moved = true;
+                }
+                
+                // Update the grid
+                grid[i] = row;
+            }
+            
+            return moved;
+        }
+        
+        // Move tiles up
+        function moveUp() {
+            let moved = false;
+            
+            for (let j = 0; j < 4; j++) {
+                // Get the column without zeros
+                let column = [];
+                for (let i = 0; i < 4; i++) {
+                    if (grid[i][j] !== 0) {
+                        column.push(grid[i][j]);
+                    }
+                }
+                
+                // Merge tiles
+                for (let i = 0; i < column.length - 1; i++) {
+                    if (column[i] === column[i + 1]) {
+                        column[i] *= 2;
+                        column[i + 1] = 0;
+                        score += column[i];
+                    }
+                }
+                
+                // Remove zeros again
+                column = column.filter(val => val !== 0);
+                
+                // Fill with zeros
+                while (column.length < 4) {
+                    column.push(0);
+                }
+                
+                // Check if the column has changed
+                let originalColumn = [];
+                for (let i = 0; i < 4; i++) {
+                    originalColumn.push(grid[i][j]);
+                }
+                
+                if (!originalColumn.every((val, index) => val === column[index])) {
+                    moved = true;
+                }
+                
+                // Update the grid
+                for (let i = 0; i < 4; i++) {
+                    grid[i][j] = column[i];
+                }
+            }
+            
+            return moved;
+        }
+        
+        // Move tiles down
+        function moveDown() {
+            let moved = false;
+            
+            for (let j = 0; j < 4; j++) {
+                // Get the column without zeros
+                let column = [];
+                for (let i = 0; i < 4; i++) {
+                    if (grid[i][j] !== 0) {
+                        column.push(grid[i][j]);
+                    }
+                }
+                
+                // Merge tiles
+                for (let i = column.length - 1; i > 0; i--) {
+                    if (column[i] === column[i - 1]) {
+                        column[i] *= 2;
+                        column[i - 1] = 0;
+                        score += column[i];
+                    }
+                }
+                
+                // Remove zeros again
+                column = column.filter(val => val !== 0);
+                
+                // Fill with zeros
+                while (column.length < 4) {
+                    column.unshift(0);
+                }
+                
+                // Check if the column has changed
+                let originalColumn = [];
+                for (let i = 0; i < 4; i++) {
+                    originalColumn.push(grid[i][j]);
+                }
+                
+                if (!originalColumn.every((val, index) => val === column[index])) {
+                    moved = true;
+                }
+                
+                // Update the grid
+                for (let i = 0; i < 4; i++) {
+                    grid[i][j] = column[i];
+                }
+            }
+            
+            return moved;
+        }
+        
+        // Check if the game is over
+        function checkGameOver() {
+            // Check if there are any empty cells
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    if (grid[i][j] === 0) {
+                        return false;
+                    }
+                }
+            }
+            
+            // Check if there are any possible merges horizontally
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (grid[i][j] === grid[i][j + 1]) {
+                        return false;
+                    }
+                }
+            }
+            
+            // Check if there are any possible merges vertically
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 4; j++) {
+                    if (grid[i][j] === grid[i + 1][j]) {
+                        return false;
+                    }
+                }
+            }
+            
+            return true;
+        }
+        
+        // Check if the player has won
+        function checkWin() {
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    if (grid[i][j] === 2048) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        
+        // Handle keyboard events
+        function handleKeyDown(e) {
+            if (gameOver) return;
+            
+            let moved = false;
+            
+            switch (e.key) {
+                case 'ArrowLeft':
+                    moved = moveLeft();
+                    break;
+                case 'ArrowRight':
+                    moved = moveRight();
+                    break;
+                case 'ArrowUp':
+                    moved = moveUp();
+                    break;
+                case 'ArrowDown':
+                    moved = moveDown();
+                    break;
+                default:
+                    return;
+            }
+            
+            if (moved) {
+                document.getElementById('score').textContent = score;
+                addRandomTile();
+                updateGrid();
+                
+                if (checkWin()) {
+                    document.getElementById('message').textContent = 'You win! Keep playing?';
+                }
+                
+                if (checkGameOver()) {
+                    gameOver = true;
+                    document.getElementById('message').textContent = 'Game over!';
+                }
+            }
+        }
+        
+        // Restart the game
+        function restartGame() {
+            initGame();
+        }
+        
+        // Add event listener for keyboard
+        document.addEventListener('keydown', handleKeyDown);
+        
+        // Initialize the game when the page loads
+        window.onload = initGame;
+    </script>
+</body>
+</html>
