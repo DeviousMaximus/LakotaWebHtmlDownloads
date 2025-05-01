@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
   <head>
     <title>Hub</title>
@@ -27,103 +27,133 @@
   </head>
   <body style="background-color:#333333;">
     <h1 style="color:#F5F5DC;">D3VIOUS UNB10CK3R</h1>
-    <p style="color:#656565;">Made by Distributer <br>Unblocks websites by making urls too long and overloading servers.</p>
-    <input style="background-color:#a9a9a9; background-color:#333333;"id='url' placeholder='Search Google or Type a URL'>
+    <p style="color:#656565;">Made by Distributer <br>Unblocks websites by making URLs too long and overloading servers.</p>
+    <input style="background-color:#333333;" id='url' placeholder='Search Google or Type a URL'>
     <button style="background-color:#a9a9a9;" onclick='openurl()'>Open URL</button>
-    <br>
-    <br>
+    <br><br>
     <p style="color:#a9a9a9;">If this does not work for you, try one of the options below. Update 3.1, Added MineCraft, SmashKarts, and Mathway Calculator</p>
     <button style="background-color:#a9a9a9;" onclick="launchSmash()">SmashKarts (DeviousKartsClient, Made By Devious)</button>
-    <br>
-    <br>
+    <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchis()">Mathway (Calculator, Made By Devious)</button>
-    <br>
-    <br>
+    <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchdns()">MineCraft (DeviousEaglerClient, Made By Devious)</button>
-    <br>
-    <br>
+    <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchde()">ExtPrint3r (All Blockers, Made By Blobby-Boi)</button>
-    <br>
-    <br>
+    <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchhang()">ExtHang3r (All Blockers, Made By Blobby-Boi)</button>
-    <br>
-    <br>
+    <br><br>
     <button style="background-color:#a9a9a9;" onclick="launch()">Stack (Html Games, Made By 16Yongjin)</button>
-    <br>
-    <br>
+    <br><br>
     <button style="background-color:#a9a9a9;" onclick="launch1()">2048 (Html Games, Made By pavan17-code)</button>
-    <br>
-    <br>
+    <br><br>
     <button style="background-color:#a9a9a9;" onclick="launch2()">WidegetBot (Widgetbot, Made By Majestic Wafer)</button>
-    <br>
-    <br>
+    <br><br>
     <button style="background-color:#a9a9a9;" onclick="launch3()">BrickedBreaker (Html games, Made By 16Yongjin)</button>
-    <br>
-    <br>
+    <br><br>
     <button style="background-color:#a9a9a9;" onclick="launch4()">Tetris-Html (Html games, Made By 16Yongjin)</button>
+
     <script>
-      function openurl(){
-        var url = document.getElementById('url').value;
-        var string = 'knm43k2643643kj643k3lkj4621642lkj326lkn632632632lk632lk11632lkj6326326326621ckjl2xkj32c';
-        var urltoopen = "";
+      function openurl() {
+        var url = document.getElementById('url').value.trim();
+        var iframeSrc = "";
+
         if (url.startsWith('https://') || url.startsWith('http://')) {
-          window.open(urltoopen + url + "#" + string.repeat(16380));
+          iframeSrc = url;
+        } else if (url.includes('.')) {
+          iframeSrc = "https://" + url;
         } else {
-          window.open(urltoopen + "https://google.com/search?q=" + url + "#" + string.repeat(16380));
+          iframeSrc = "https://google.com/search?q=" + encodeURIComponent(url);
         }
+
+        var windowContent = `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>Embedded Content</title>
+              <link rel="icon" type="image/x-icon" href="https://drive.google.com/favicon.ico">
+              <style>
+                body {
+                  margin: 0;
+                  padding: 0;
+                  overflow: hidden;
+                }
+                embed {
+                  width: 100vw;
+                  height: 100vh;
+                  border: none;
+                }
+              </style>
+            </head>
+            <body>
+              <embed src="` + iframeSrc + `">
+            </body>
+          </html>
+        `;
+
+        var newWindow = window.open("", "_blank");
+        newWindow.document.write(windowContent);
+        newWindow.document.close();
       }
-      function launchSmash(){
+
+      function launchSmash() {
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/SmashKarts.html")
-      .then((response) => response.text())
-      .then((text) => document.write(text));
+          .then((response) => response.text())
+          .then((text) => document.write(text));
       }
-      function launchis(){
+
+      function launchis() {
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/trashyproxy.html")
-      .then((response) => response.text())
-      .then((text) => document.write(text));
+          .then((response) => response.text())
+          .then((text) => document.write(text));
       }
-      function launchdns(){
+
+      function launchdns() {
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/DeviousEaglerClient.html")
-      .then((response) => response.text())
-      .then((text) => document.write(text));
+          .then((response) => response.text())
+          .then((text) => document.write(text));
       }
-      function launchde(){
+
+      function launchde() {
         fetch("https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/index.html")
-      .then((response) => response.text())
-      .then((text) => document.write(text));
+          .then((response) => response.text())
+          .then((text) => document.write(text));
       }
-      function launchhang(){
+
+      function launchhang() {
         fetch("https://raw.githubusercontent.com/Blobby-Boi/ExtHang3r/refs/heads/main/index.html")
-      .then((response) => response.text())
-      .then((text) => document.write(text));
+          .then((response) => response.text())
+          .then((text) => document.write(text));
       }
-      function launch(){
+
+      function launch() {
         fetch("https://raw.githubusercontent.com/16Yongjin/html-games/refs/heads/master/stack.html")
-      .then((response) => response.text())
-      .then((text) => document.write(text));
+          .then((response) => response.text())
+          .then((text) => document.write(text));
       }
-      function launch1(){
+
+      function launch1() {
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/2048.html")
-      .then((response) => response.text())
-      .then((text) => document.write(text));
-      }      
-      function launch2(){
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/hello-world/refs/heads/main/WidgetChatBot.html")
-      .then((response) => response.text())
-      .then((text) => document.write(text));
+          .then((response) => response.text())
+          .then((text) => document.write(text));
       }
-      function launch3(){
+
+      function launch2() {
+        fetch("https://raw.githubusercontent.com/DeviousMaximus/hello-world/refs/heads/main/WidgetChatBot.html")
+          .then((response) => response.text())
+          .then((text) => document.write(text));
+      }
+
+      function launch3() {
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/Bricked-breaker.html")
-      .then((response) => response.text())
-      .then((text) => document.write(text));
-      }      
-      function launch4(){
+          .then((response) => response.text())
+          .then((text) => document.write(text));
+      }
+
+      function launch4() {
         fetch("https://raw.githubusercontent.com/16Yongjin/html-games/refs/heads/master/tetris.html")
-      .then((response) => response.text())
-      .then((text) => document.write(text));
+          .then((response) => response.text())
+          .then((text) => document.write(text));
       }
     </script>
   </body>
 </html>
-
-
