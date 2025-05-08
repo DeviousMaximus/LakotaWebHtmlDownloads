@@ -31,11 +31,13 @@
     <input style="background-color:#333333;" id='url' placeholder='Search Google or Type a URL'>
     <button style="background-color:#a9a9a9;" onclick='openurl()'>Open URL</button>
     <br><br>
-    <p style="color:#a9a9a9;">If this does not work for you, try one of the options below. Update 3.1, Added MineCraft, SmashKarts, and Mathway Calculator</p>
+    <p style="color:#a9a9a9;">If this does not work for you, try one of the options below. Update 3.2, Added 1v1.lol</p>
     <button style="background-color:#a9a9a9;" onclick="launchde()">ExtPrint3r (All Blockers, Made By Blobby-Boi)</button>
     <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchhang()">ExtHang3r (All Blockers, Made By Blobby-Boi)</button>
     <br><br>
+	<button style="background-color:#a9a9a9;" onclick="launch1v1()">1v1.lol (Devious1v1Client, Made By Devious)</button>
+	<br><br>
     <button style="background-color:#a9a9a9;" onclick="launchSmash()">SmashKarts (DeviousKartsClient, Made By Devious)</button>
     <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchis()">Mathway (Calculator, Made By Devious)</button>
@@ -151,6 +153,11 @@
 
       function launch4() {
         fetch("https://raw.githubusercontent.com/16Yongjin/html-games/refs/heads/master/tetris.html")
+          .then((response) => response.text())
+          .then((text) => document.write(text));
+      }
+            function launch1v1() {
+        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/1v1.lol.html")
           .then((response) => response.text())
           .then((text) => document.write(text));
       }
