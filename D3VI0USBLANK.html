@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Open about:blank and Inject Remote HTML</title>
+  <script>
+    window.onload = async function() {
+      const url = "https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/not-D3VI0US-file.html";
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Failed to fetch HTML");
+        const htmlContent = await response.text();
+        const newTab = window.open("about:blank", "_blank");
+        if (newTab) {
+          newTab.document.open();
+          newTab.document.write(htmlContent);
+          newTab.document.close();
+        } else {
+          alert("Popup blocked! Please allow popups for this website.");
+        }
+      } catch (e) {
+        alert("Failed to load remote HTML: " + e.message);
+      }
+    };
+  </script>
+</head>
+<body>
+  <!-- This page opens about:blank and loads remote HTML on page load -->
+</body>
+</html>
