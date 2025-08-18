@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Code Executor</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    textarea { width: 100%; height: 200px; margin-bottom: 1em; }
+    button { padding: 0.5em 1em; font-size: 1em; }
+  </style>
+</head>
+<body>
+  <h1>HTML Code Executor</h1>
+  <p>Paste your HTML code below and click "Run in New Tab".</p>
+  <textarea id="code" placeholder="&lt;!DOCTYPE html&gt;&#10;&lt;html&gt;&#10;..."></textarea>
+  <br>
+  <button onclick="runCode()">Run in New Tab</button>
+
+  <script>
+    function runCode() {
+      const code = document.getElementById('code').value;
+      const win = window.open("about:blank", "_blank");
+      win.document.open();
+      win.document.write(code);
+      win.document.close();
+    }
+  </script>
+</body>
+</html>
