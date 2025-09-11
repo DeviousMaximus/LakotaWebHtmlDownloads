@@ -57,6 +57,9 @@
     <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchWplace()">Wplace.Live (Wplace, Made By Devious)
 </button>
+    <br><br>
+    <button style="background-color:#a9a9a9;" onclick="launchDS()">NdsEmu - Rom Req. (DSEmu, Made By Devious)
+</button>
 
     <script>
       function openurl() {
@@ -169,7 +172,12 @@
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/wplace.html")
           .then((response) => response.text())
           .then((text) => document.write(text));
-      }
+      }                  
+            function launchDS() {
+        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/ndsemu.html")
+          .then((response) => response.text())
+          .then((text) => document.write(text));
+      }      
     </script>
   </body>
 </html>
