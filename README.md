@@ -1,12 +1,13 @@
 # DeviousUnblocker
-After downloading, rename the file from .html to .htm
+After downloading, rename the file from .html to .htm (optional for D3VI0USBLANK)
+
+Inconsistent Updates
 
 
-I update when I want and whenever I want
-
-
-Ver: 4.1 - Added Wplace.Live
-
+Ver: 4.1.5 - Added Wplace.Live and NdsAnywhereEmu
 
 
 New workaround Download D3VI0USBLANK only
+
+
+A lightweight unblocker with dark colored themes
