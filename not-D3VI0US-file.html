@@ -31,7 +31,7 @@
     <input style="background-color:#333333;" id='url' placeholder='Search Google or Type a URL'>
     <button style="background-color:#a9a9a9;" onclick='openurl()'>Open URL</button>
     <br><br>
-    <p style="color:#a9a9a9;">If this does not work for you, try one of the options below. Update 4.1.5, Added Wplace.Live and NDSEmu Rom is Required.</p>
+    <p style="color:#a9a9a9;">If this does not work for you, try one of the options below. Update 4.2, Added Wplace.Live and Multiple Emulators.</p>
     <button style="background-color:#a9a9a9;" onclick="launchde()">ExtPrint3r (All Blockers, Made By Blobby-Boi)</button>
     <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchhang()">ExtHang3r (All Blockers, Made By Blobby-Boi)</button>
@@ -63,7 +63,9 @@
     <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchGBa()">GBA Online (EmuGame, Made By ayvacs)
 </button>
-
+    <br><br>
+    <button style="background-color:#a9a9a9;" onclick="launchCGZ()">CGZ Emu (EmuGame, Made By ClassicGameZone)
+</button>
     <script>
       function openurl() {
         var url = document.getElementById('url').value.trim();
@@ -183,6 +185,11 @@
       }
             function launchGBa() {
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/gbaonline.html")
+          .then((response) => response.text())
+          .then((text) => document.write(text));
+      }      
+             function launchCGZ() {
+        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/Emulators%26RomHacks.html")
           .then((response) => response.text())
           .then((text) => document.write(text));
       }      
