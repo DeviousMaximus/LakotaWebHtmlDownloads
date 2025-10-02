@@ -60,6 +60,9 @@
     <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchDS()">DS Anywhere (DSEmu, Made By brxxn)
 </button>
+    <br><br>
+    <button style="background-color:#a9a9a9;" onclick="launchGBa()">GBA Online (GBAemu, Made By GbaOnline)
+</button>
 
     <script>
       function openurl() {
@@ -175,6 +178,11 @@
       }                  
             function launchDS() {
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/ndsemu.html")
+          .then((response) => response.text())
+          .then((text) => document.write(text));  
+      }
+            function launchGBa() {
+        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/gbaonline.html")
           .then((response) => response.text())
           .then((text) => document.write(text));
       }      
