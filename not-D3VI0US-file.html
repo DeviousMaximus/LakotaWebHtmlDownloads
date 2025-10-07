@@ -66,6 +66,9 @@
     <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchCGZ()">CGZ Emu (EmuGame, Made By ClassicGameZone)
 </button>
+    <br><br>
+    <button style="background-color:#a9a9a9;" onclick="launchWC()">Wafer Cafe (Games , Made By Majestic Wafer)
+</button>
     <script>
       function openurl() {
         var url = document.getElementById('url').value.trim();
@@ -190,6 +193,11 @@
       }      
              function launchCGZ() {
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/Emulators%26RomHacks.html")
+          .then((response) => response.text())
+          .then((text) => document.write(text));
+      }      
+             function launchWC() {
+        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/Wafercafe.html")
           .then((response) => response.text())
           .then((text) => document.write(text));
       }      
