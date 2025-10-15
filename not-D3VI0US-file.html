@@ -69,6 +69,9 @@
     <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchWC()">Wafer Cafe (Games , Made By Majestic Wafer)
 </button>
+    <br><br>
+    <button style="background-color:#a9a9a9;" onclick="launchTwo()">Web Unblocker (Unblocker , Made By Utopia)
+</button>
     <script>
       function openurl() {
         var url = document.getElementById('url').value.trim();
@@ -198,6 +201,11 @@
       }      
              function launchWC() {
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/Wafercafe.html")
+          .then((response) => response.text())
+          .then((text) => document.write(text));
+      }                   
+             function launchTwo() {
+        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/2.html")
           .then((response) => response.text())
           .then((text) => document.write(text));
       }      
