@@ -67,10 +67,13 @@
     <button style="background-color:#a9a9a9;" onclick="launchCGZ()">CGZ Emu (EmuGame, Made By ClassicGameZone)
 </button>
     <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchWC()">Wafer Cafe (Games , Made By Majestic Wafer)
+    <button style="background-color:#a9a9a9;" onclick="launchWC()">Wafer Cafe (Games, Made By Majestic Wafer)
 </button>
     <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchTwo()">Web Unblocker (Unblocker , Made By Utopia)
+    <button style="background-color:#a9a9a9;" onclick="launchTwo()">Web Unblocker (Unblocker, Made By Utopia)
+</button>
+    <br><br>
+    <button style="background-color:#a9a9a9;" onclick="launchFR()">FakeRoyale (Games, Made By Devious)
 </button>
     <script>
       function openurl() {
@@ -206,6 +209,11 @@
       }                   
              function launchTwo() {
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/2.html")
+          .then((response) => response.text())
+          .then((text) => document.write(text));
+      }      
+             function launchFR() {
+        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/FakeRoyale.html")
           .then((response) => response.text())
           .then((text) => document.write(text));
       }      
