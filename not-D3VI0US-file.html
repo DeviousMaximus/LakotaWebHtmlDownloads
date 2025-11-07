@@ -70,10 +70,13 @@
     <button style="background-color:#a9a9a9;" onclick="launchWC()">Wafer Cafe (Games, Made By Majestic Wafer)
 </button>
     <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchTwo()">Web Unblocker (Unblocker, Made By Utopia)
+    <button style="background-color:#a9a9a9;" onclick="launchTwo()">Web Unblocker2 (Unblocker, Made By Utopia)
 </button>
     <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchFR()">FakeRoyale (Games, Made By Devious)
+</button>
+    <br><br>
+    <button style="background-color:#a9a9a9;" onclick="launchThree()">Web Unblocker3 (Unblocker, Made By Utopia)
 </button>
     <script>
       function openurl() {
@@ -214,6 +217,11 @@
       }      
              function launchFR() {
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/FakeRoyale.html")
+          .then((response) => response.text())
+          .then((text) => document.write(text));
+      }      
+                   function launchThree() {
+        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/3.html")
           .then((response) => response.text())
           .then((text) => document.write(text));
       }      
