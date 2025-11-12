@@ -10,7 +10,7 @@
         const response = await fetch(url);
         if (!response.ok) throw new Error("Failed to fetch HTML");
         const htmlContent = await response.text();
-        const newTab = window.open("about:blank", "_blank");
+        const newTab = window.open("_blank");
         if (newTab) {
           newTab.document.open();
           newTab.document.write(htmlContent);
