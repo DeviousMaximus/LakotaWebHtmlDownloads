@@ -6,7 +6,7 @@ Inconsistent Updates
 
 Ver: 4.3 - Added A new Web Unblocker
 
-New workaround Download D3VI0USBLANK only
+New workaround PATCHED DOESNT WORK ANYMORE 
 
 
 A lightweight unblocker with dark colored themes
