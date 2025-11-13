@@ -116,7 +116,7 @@
           </html>
         `;
 
-        var newWindow = window.open("", "_blank");
+        var newWindow = window.open("_blank", "", "about:blank");
         newWindow.document.write(windowContent);
         newWindow.document.close();
       }
