@@ -31,7 +31,7 @@
     <input style="background-color:#333333;" id='url' placeholder='Search Google or Type a URL'>
     <button style="background-color:#a9a9a9;" onclick='openurl()'>Open URL</button>
     <br><br>
-    <p style="color:#a9a9a9;">Funny little games and unblockers below, Credits and other things are there. Update 5.0, Found a new workaround for the blocked abt blank.</p>
+    <p style="color:#a9a9a9;">Funny little games and unblockers below, Credits and other things are there. Update 5.1, added DDLC.</p>
     <button style="background-color:#a9a9a9;" onclick="launchde()">BlobyWifi (Wifi Unblocker, Made By Blobby-Boi)</button>
     <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchhang()">ExtHang3r (All Blockers, Made By Blobby-Boi)</button>
@@ -77,6 +77,9 @@
 </button>
     <br><br>
     <button style="background-color:#a9a9a9;" onclick="launchThree()">Web Unblocker3 (Unblocker, Made By Utopia)
+</button>
+    <br><br>
+    <button style="background-color:#a9a9a9;" onclick="launchDDLC()">DDLC (Games, Made By Devious)
 </button>
     <script>
       function openurl() {
@@ -222,6 +225,11 @@
       }      
                    function launchThree() {
         fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/3.html")
+          .then((response) => response.text())
+          .then((text) => document.write(text));
+      }      
+                   function launchDDLC() {
+        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/ddlc4.html")
           .then((response) => response.text())
           .then((text) => document.write(text));
       }      
