@@ -1,238 +1,294 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hub</title>
-    <link rel="icon" href="https://cdn4.iconfinder.com/data/icons/vectory-personnel-2/40/user_unblock-512.png" type="image/png">
-    <style>
-      h1 {
-        font-family: 'Helvetica', sans-serif;
-      }
-      p {
-        font-family: 'Courier', Courier, monospace;
-      }
-      button {
-        border-radius: 5px 15px 5px 15px;
-        height: 30px;
-      }
-      button:hover {
-        border-radius: 15px 5px 15px 5px;
-        height: 30px;
-      }
-      input {
-        border-radius: 5px;
-        height: 30px;
-        width: 500px;
-      }
-    </style>
-  </head>
-  <body style="background-color:#333333;">
-    <h1 style="color:#F5F5DC;">D3VIOUS UNB10CK3R</h1>
-    <p style="color:#656565;">Made by Distributer <br>Unblocks websites by making URLs too long and overloading servers.</p>
-    <input style="background-color:#333333;" id='url' placeholder='Search Google or Type a URL'>
-    <button style="background-color:#a9a9a9;" onclick='openurl()'>Open URL</button>
-    <br><br>
-    <p style="color:#a9a9a9;">Funny little games and unblockers below, Credits and other things are there. Update 5.1, added DDLC.</p>
-    <button style="background-color:#a9a9a9;" onclick="launchde()">BlobyWifi (Wifi Unblocker, Made By Blobby-Boi)</button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchhang()">ExtHang3r (All Blockers, Made By Blobby-Boi)</button>
-    <br><br>
-	<button style="background-color:#a9a9a9;" onclick="launch1v1()">1v1.lol (Devious1v1Client, Made By Devious)</button>
-	<br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchSmash()">SmashKarts (DeviousKartsClient, Made By Devious)</button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchis()">Mathway (Calculator, Made By Devious)</button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchdns()">MineCraft (DeviousEaglerClient, Made By Devious)</button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launch()">Stack (Html Games, Made By 16Yongjin)</button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launch1()">2048 (Html Games, Made By pavan17-code)</button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launch2()">WidegetBot (Widgetbot, Made By Majestic Wafer)</button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launch3()">BrickedBreaker (Html games, Made By 16Yongjin)</button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launch4()">Tetris-Html (Html games, Made By 16Yongjin)
+<head>
+<title>Hub</title>
+
+<link rel="icon"
+href="https://cdn4.iconfinder.com/data/icons/vectory-personnel-2/40/user_unblock-512.png"
+type="image/png">
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #333333;
+  font-family: Helvetica, sans-serif;
+  color: #F5F5DC;
+}
+
+#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background: #333333;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at top left, rgba(245,245,220,0.04), transparent 40%);
+}
+
+/* layout */
+.container {
+  padding: 25px;
+}
+
+/* title */
+h1 {
+  color: #F5F5DC;
+  font-size: 42px;
+  margin-bottom: 5px;
+  animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #F5F5DC, 0 0 10px #777; }
+  to { text-shadow: 0 0 10px #F5F5DC, 0 0 25px #999; }
+}
+
+p {
+  font-family: Courier, monospace;
+  color: #A9A9A9;
+}
+
+input {
+  width: 500px;
+  max-width: 90%;
+  height: 40px;
+
+  border: 1px solid #666;
+  border-radius: 10px;
+
+  background: rgba(40,40,40,0.8);
+  color: #F5F5DC;
+
+  padding-left: 12px;
+}
+
+button {
+  height: 35px;
+  padding: 0 14px;
+
+  border: none;
+  border-radius: 5px 15px 5px 15px;
+
+  background: rgba(169,169,169,0.18);
+  color: #F5F5DC;
+
+  cursor: pointer;
+  transition: 0.25s;
+
+  margin-top: 10px;
+}
+
+button:hover {
+  border-radius: 15px 5px 15px 5px;
+  transform: translateY(-2px);
+  background: rgba(245,245,220,0.2);
+  box-shadow: 0 0 10px rgba(245,245,220,0.2);
+}
+
+/* list */
+.buttons {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: fit-content;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+<div class="overlay"></div>
+
+<div class="container">
+
+<h1>D3VIOUS UNB10CK3R</h1>
+
+<p>
+Made by Distributer <br>
+Unblocks websites by making URLs too long and overloading servers.
+</p>
+
+<input id="url" placeholder="Search Google or Type a URL">
+
+<button onclick="openurl()">Open URL</button>
+
+<p> Update 6.0, made new UI cleaner, overhauled button system, and fixed DeviousEaglerClient. <br>
+Cool little games and unblockers below, Credits and other things are there. <br> 
+Some things may be obsolete.</p>
+
+<div class="buttons">
+
+<button onclick="launch('https://raw.githubusercontent.com/timmyturnerisnerd/Blobwifi/refs/heads/main/index.html')">
+BlobyWifi (Wifi Unblocker, Made By Blobby-Boi)
 </button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchWplace()">Wplace.Live (Wplace, Made By Devious)
+
+<button onclick="launch('https://raw.githubusercontent.com/Blobby-Boi/ExtHang3r/refs/heads/main/index.html')">
+ExtHang3r (All Blockers, Made By Blobby-Boi)
 </button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchDS()">DS Anywhere (EmuGame, Made By brxxn)
+
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/1v1.lol.html')">
+1v1.lol (Devious1v1Client, Made By Devious)
 </button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchGBa()">GBA Online (EmuGame, Made By ayvacs)
+
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/SmashKarts.html')">
+SmashKarts (DeviousKartsClient, Made By Devious)
 </button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchCGZ()">CGZ Emu (EmuGame, Made By ClassicGameZone)
+
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/trashyproxy.html')">
+Mathway (Calculator, Made By Devious)
 </button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchWC()">Wafer Cafe (Games, Made By Majestic Wafer)
+
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/DeviousEaglerClient.html')">
+MineCraft (DeviousEaglerClient, Made By Devious)
 </button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchTwo()">Web Unblocker2 (Unblocker, Made By Utopia)
+
+<button onclick="launch('https://raw.githubusercontent.com/16Yongjin/html-games/refs/heads/master/stack.html')">
+Stack (Html Games, Made By 16Yongjin)
 </button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchFR()">FakeRoyale (Games, Made By Devious)
+
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/2048.html')">
+2048 (Html Games, Made By pavan17-code)
 </button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchThree()">Web Unblocker3 (Unblocker, Made By Utopia)
+
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/hello-world/refs/heads/main/WidgetChatBot.html')">
+WidegetBot (Widgetbot, Made By Majestic Wafer)
 </button>
-    <br><br>
-    <button style="background-color:#a9a9a9;" onclick="launchDDLC()">DDLC (Games, Made By Devious)
+
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/Bricked-breaker.html')">
+BrickedBreaker (Html games, Made By 16Yongjin)
 </button>
-    <script>
-      function openurl() {
-        var url = document.getElementById('url').value.trim();
-        var iframeSrc = "";
 
-        if (url.startsWith('https://') || url.startsWith('http://')) {
-          iframeSrc = url;
-        } else if (url.includes('.')) {
-          iframeSrc = "https://" + url;
-        } else {
-          iframeSrc = "https://google.com/search?q=" + encodeURIComponent(url);
-        }
+<button onclick="launch('https://raw.githubusercontent.com/16Yongjin/html-games/refs/heads/master/tetris.html')">
+Tetris-Html (Html games, Made By 16Yongjin)
+</button>
 
-        var windowContent = `
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <title>Embedded Content</title>
-              <link rel="icon" type="image/x-icon" href="https://drive.google.com/favicon.ico">
-              <style>
-                body {
-                  margin: 0;
-                  padding: 0;
-                  overflow: hidden;
-                }
-                embed {
-                  width: 100vw;
-                  height: 100vh;
-                  border: none;
-                }
-              </style>
-            </head>
-            <body>
-              <embed src="` + iframeSrc + `">
-            </body>
-          </html>
-        `;
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/wplace.html')">
+Wplace.Live (Wplace, Made By Devious)
+</button>
 
-        var newWindow = window.open("_blank", "", "about:blank");
-        newWindow.document.write(windowContent);
-        newWindow.document.close();
-      }
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/ndsemu.html')">
+DS Anywhere (EmuGame, Made By brxxn)
+</button>
 
-      function launchSmash() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/SmashKarts.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/gbaonline.html')">
+GBA Online (EmuGame, Made By ayvacs)
+</button>
 
-      function launchis() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/trashyproxy.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/Emulators%26RomHacks.html')">
+CGZ Emu (EmuGame, Made By ClassicGameZone)
+</button>
 
-      function launchdns() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/DeviousEaglerClient.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/Wafercafe.html')">
+Wafer Cafe (Games, Made By Majestic Wafer)
+</button>
 
-      function launchde() {
-        fetch("https://raw.githubusercontent.com/timmyturnerisnerd/Blobwifi/refs/heads/main/index.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/2.html')">
+Web Unblocker2 (Unblocker, Made By Utopia)
+</button>
 
-      function launchhang() {
-        fetch("https://raw.githubusercontent.com/Blobby-Boi/ExtHang3r/refs/heads/main/index.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/FakeRoyale.html')">
+FakeRoyale (Games, Made By Devious)
+</button>
 
-      function launch() {
-        fetch("https://raw.githubusercontent.com/16Yongjin/html-games/refs/heads/master/stack.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/3.html')">
+Web Unblocker3 (Unblocker, Made By Utopia)
+</button>
 
-      function launch1() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/2048.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }
+<button onclick="launch('https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/ddlc4.html')">
+DDLC (Games, Made By Devious)
+</button>
 
-      function launch2() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/hello-world/refs/heads/main/WidgetChatBot.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }
+</div>
+</div>
 
-      function launch3() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/Bricked-breaker.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }
+<script>
 
-      function launch4() {
-        fetch("https://raw.githubusercontent.com/16Yongjin/html-games/refs/heads/master/tetris.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }
-            function launch1v1() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/1v1.lol.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }
-            function launchWplace() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/wplace.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }                  
-            function launchDS() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/ndsemu.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));  
-      }
-            function launchGBa() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/gbaonline.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }      
-             function launchCGZ() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/Emulators%26RomHacks.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }      
-             function launchWC() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/Wafercafe.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }                   
-             function launchTwo() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/2.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }      
-             function launchFR() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/FakeRoyale.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }      
-                   function launchThree() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/3.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }      
-                   function launchDDLC() {
-        fetch("https://raw.githubusercontent.com/DeviousMaximus/LakotaWebHtmlDownloads/refs/heads/main/folder/ddlc4.html")
-          .then((response) => response.text())
-          .then((text) => document.write(text));
-      }      
-    </script>
-  </body>
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+}
+resize();
+
+const snow=[];
+
+for(let i=0;i<180;i++){
+snow.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*3+1,
+s:Math.random()*1+0.5,
+d:Math.random()
+});
+}
+
+let a=0;
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(245,245,220,0.85)";
+ctx.beginPath();
+
+for(let f of snow){
+ctx.moveTo(f.x,f.y);
+ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+}
+
+ctx.fill();
+move();
+}
+
+function move(){
+a+=0.003;
+for(let f of snow){
+f.y+=f.s;
+f.x+=Math.sin(a+f.d)*0.5;
+
+if(f.y>canvas.height){
+f.y=-10;
+f.x=Math.random()*canvas.width;
+}
+}
+}
+
+setInterval(draw,33);
+addEventListener("resize",resize);
+
+function launch(url){
+fetch(url)
+.then(r=>r.text())
+.then(t=>document.write(t));
+}
+
+function openurl(){
+let u=document.getElementById("url").value.trim();
+let src=u.startsWith("http")?u:
+u.includes(".")?"https://"+u:
+"https://google.com/search?q="+encodeURIComponent(u);
+
+let w=window.open();
+w.document.write(`<iframe src="${src}" style="width:100vw;height:100vh;border:none;"></iframe>`);
+}
+
+</script>
+
+</body>
 </html>
