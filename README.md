@@ -1,10 +1,10 @@
 # DeviousUnblocker
 After downloading, rename the file from .html to .htm (optional for D3VI0USBLANK)
 
-Inconsistent Updates
+Very Inconsistent Updates
 
 
-Ver: 5.0 - Added a new work around
+Ver: 6.0 - Made New UI for unblocker
 
 New workaround PATCHED DOESNT WORK ANYMORE 
 
