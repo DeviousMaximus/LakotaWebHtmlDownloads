@@ -284,7 +284,7 @@ let src=u.startsWith("http")?u:
 u.includes(".")?"https://"+u:
 "https://google.com/search?q="+encodeURIComponent(u);
 
-let w=window.open(_blank);
+let w=window.open("_blank");
 w.document.write(`<iframe src="${src}" style="width:100vw;height:100vh;border:none;"></iframe>`);
 }
 
